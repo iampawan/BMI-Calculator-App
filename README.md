@@ -21,4 +21,6 @@ The objective of this tutorial is to look at how we can customise Flutter Widget
 - Learn about composition vs. inheritance and the Flutter way of creating custom UI.
 - Understand the difference between const and final in Dart and when to use each.
 - How to use State Management
+
+Here is the Video Tutorial - https://www.youtube.com/watch?v=zk_Sj_b3wYc
   .
