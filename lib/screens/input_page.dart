@@ -28,30 +28,31 @@ class InputPage extends StatelessWidget {
             Expanded(
               child: VxBuilder(
                 mutations: {ChangeGender},
-                builder: (context, _) => Row(
-                  children: [
-                    Expanded(
-                      child: ReusableCard(
-                        color: store.maleCardColor,
-                        child: IconContent(
-                          label: "Male",
-                          icon: FontAwesomeIcons.mars,
+                builder: (context, BMIStore store, status) =>
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ReusableCard(
+                            color: store.maleCardColor,
+                            child: IconContent(
+                              label: "Male",
+                              icon: FontAwesomeIcons.mars,
+                            ),
+                            onTap: () => ChangeGender(Sex.Male),
+                          ),
                         ),
-                        onTap: () => ChangeGender(Sex.Male),
-                      ),
-                    ),
-                    Expanded(
-                      child: ReusableCard(
-                        color: store.femaleCardColor,
-                        child: IconContent(
-                          label: "Female",
-                          icon: FontAwesomeIcons.venus,
+                        Expanded(
+                          child: ReusableCard(
+                            color: store.femaleCardColor,
+                            child: IconContent(
+                              label: "Female",
+                              icon: FontAwesomeIcons.venus,
+                            ),
+                            onTap: () => ChangeGender(Sex.Female),
+                          ),
                         ),
-                        onTap: () => ChangeGender(Sex.Female),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
               ),
             ),
             Expanded(
@@ -60,55 +61,58 @@ class InputPage extends StatelessWidget {
                   Expanded(
                     child: VxBuilder(
                       mutations: {ChangeHeight},
-                      builder: (context, _) => ReusableCard(
-                        color: kActiveCardColor,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "HEIGHT",
-                              style: kLabelTextStyle,
-                            ),
-                            Row(
+                      builder: (context, BMIStore store, status) =>
+                          ReusableCard(
+                            color: kActiveCardColor,
+                            child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.baseline,
-                              textBaseline: TextBaseline.alphabetic,
                               children: [
                                 Text(
-                                  store.height.toString(),
-                                  style: kLargeNumberLabelTextStyle,
-                                ),
-                                Text(
-                                  "cm",
+                                  "HEIGHT",
                                   style: kLabelTextStyle,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment
+                                      .baseline,
+                                  textBaseline: TextBaseline.alphabetic,
+                                  children: [
+                                    Text(
+                                      store.height.toString(),
+                                      style: kLargeNumberLabelTextStyle,
+                                    ),
+                                    Text(
+                                      "cm",
+                                      style: kLabelTextStyle,
+                                    ),
+                                  ],
+                                ),
+                                SliderTheme(
+                                  data: SliderTheme.of(context).copyWith(
+                                    thumbShape: RoundSliderThumbShape(
+                                      enabledThumbRadius: 15.0,
+                                    ),
+                                    overlayShape: RoundSliderOverlayShape(
+                                      overlayRadius: 30.0,
+                                    ),
+                                    thumbColor: Colors.deepOrange,
+                                    overlayColor: Colors.deepOrange.shade900,
+                                    activeTrackColor: Colors.white,
+                                    inactiveTrackColor: Color(0xFF8D8E98),
+                                  ),
+                                  child: Slider(
+                                    value: store.height.toDouble(),
+                                    min: kSliderMin,
+                                    max: kSliderMax,
+                                    divisions: (kSliderMax - kSliderMin)
+                                        .toInt(),
+                                    onChanged: (double newValue) =>
+                                        ChangeHeight(newValue.toInt()),
+                                  ),
                                 ),
                               ],
                             ),
-                            SliderTheme(
-                              data: SliderTheme.of(context).copyWith(
-                                thumbShape: RoundSliderThumbShape(
-                                  enabledThumbRadius: 15.0,
-                                ),
-                                overlayShape: RoundSliderOverlayShape(
-                                  overlayRadius: 30.0,
-                                ),
-                                thumbColor: Colors.deepOrange,
-                                overlayColor: Colors.deepOrange.shade900,
-                                activeTrackColor: Colors.white,
-                                inactiveTrackColor: Color(0xFF8D8E98),
-                              ),
-                              child: Slider(
-                                value: store.height.toDouble(),
-                                min: kSliderMin,
-                                max: kSliderMax,
-                                divisions: (kSliderMax - kSliderMin).toInt(),
-                                onChanged: (double newValue) =>
-                                    ChangeHeight(newValue.toInt()),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                          ),
                     ),
                   ),
                 ],
@@ -120,75 +124,77 @@ class InputPage extends StatelessWidget {
                   Expanded(
                     child: VxBuilder(
                       mutations: {ChangeWeight},
-                      builder: (context, _) => ReusableCard(
-                        color: kActiveCardColor,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "WEIGHT",
-                              style: kLabelTextStyle,
-                            ),
-                            Text(
-                              store.weight.toString(),
-                              style: kLargeNumberLabelTextStyle,
-                            ),
-                            Row(
+                      builder: (context, BMIStore store, status) =>
+                          ReusableCard(
+                            color: kActiveCardColor,
+                            child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                RoundIconButton(
-                                  icon: FontAwesomeIcons.plus,
-                                  onPressed: () =>
-                                      ChangeWeight(store.weight + 1),
+                                Text(
+                                  "WEIGHT",
+                                  style: kLabelTextStyle,
                                 ),
-                                SizedBox(width: 10),
-                                RoundIconButton(
-                                  icon: FontAwesomeIcons.minus,
-                                  onPressed: () =>
-                                      ChangeWeight(store.weight - 1),
+                                Text(
+                                  store.weight.toString(),
+                                  style: kLargeNumberLabelTextStyle,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    RoundIconButton(
+                                      icon: FontAwesomeIcons.plus,
+                                      onPressed: () =>
+                                          ChangeWeight(store.weight + 1),
+                                    ),
+                                    SizedBox(width: 10),
+                                    RoundIconButton(
+                                      icon: FontAwesomeIcons.minus,
+                                      onPressed: () =>
+                                          ChangeWeight(store.weight - 1),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-                          ],
-                        ),
-                      ),
+                          ),
                     ),
                   ),
                   Expanded(
                     child: VxBuilder(
                       mutations: {ChangeAge},
-                      builder: (context, _) => ReusableCard(
-                        color: kActiveCardColor,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "AGE",
-                              style: kLabelTextStyle,
-                            ),
-                            Text(
-                              store.age.toString(),
-                              style: kLargeNumberLabelTextStyle,
-                            ),
-                            Row(
+                      builder: (context, BMIStore store, status) =>
+                          ReusableCard(
+                            color: kActiveCardColor,
+                            child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                RoundIconButton(
-                                  icon: FontAwesomeIcons.plus,
-                                  onPressed: () => ChangeAge(store.age + 1),
+                                Text(
+                                  "AGE",
+                                  style: kLabelTextStyle,
                                 ),
-                                SizedBox(
-                                  width: 10,
+                                Text(
+                                  store.age.toString(),
+                                  style: kLargeNumberLabelTextStyle,
                                 ),
-                                RoundIconButton(
-                                  icon: FontAwesomeIcons.minus,
-                                  onPressed: () => ChangeAge(store.age - 1),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    RoundIconButton(
+                                      icon: FontAwesomeIcons.plus,
+                                      onPressed: () => ChangeAge(store.age + 1),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    RoundIconButton(
+                                      icon: FontAwesomeIcons.minus,
+                                      onPressed: () => ChangeAge(store.age - 1),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-                          ],
-                        ),
-                      ),
+                          ),
                     ),
                   )
                 ],
@@ -198,7 +204,7 @@ class InputPage extends StatelessWidget {
               label: 'CALCULATE',
               onPress: () {
                 final calc =
-                    Calculator(height: store.height, weight: store.weight);
+                Calculator(height: store.height, weight: store.weight);
                 final bmi = calc.calculate();
                 final result = calc.getResult();
                 final interpretation = calc.getInterpretation();
@@ -206,7 +212,8 @@ class InputPage extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ResultsPage(
+                        builder: (context) =>
+                            ResultsPage(
                               bmi: bmi,
                               result: result,
                               interpretation: interpretation,
