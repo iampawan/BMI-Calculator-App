@@ -9,9 +9,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
-  font_awesome_flutter: ^9.0.0
-  velocity_x: ^2.6.1
+  cupertino_icons: ^1.0.4
+  font_awesome_flutter: ^9.2.0
+  velocity_x: ^3.3.0
 
 dev_dependencies:
   flutter_test:
